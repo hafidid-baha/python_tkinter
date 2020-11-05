@@ -2,6 +2,8 @@ from tkinter import *
 
 # create the root window
 root = Tk()
+root.title = "learn python with tkinter"
+root.iconbitmap('E:/Programming Projects/python/tinker/img/spider.ico')
 
 # create event function
 
