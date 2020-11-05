@@ -2,7 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 # create the root window
 root = Tk()
-root.title = "learn python with tkinter"
+root.title("learn python with tkinter")
 # chosing app icon
 root.iconbitmap('img/spider.ico')
 

@@ -2,7 +2,7 @@ from tkinter import *
 
 # create the root window
 root = Tk()
-root.title = "learn python with tkinter"
+root.title("learn python with tkinter")
 root.iconbitmap('E:/Programming Projects/python/tinker/img/spider.ico')
 # create text input to catch data from users
 e = Entry(root, width=20, bg="#eee", fg="black")

@@ -1,7 +1,7 @@
 from tkinter import *
 
 root = Tk()
-root.title = "learn python with tkinter"
+root.title("learn python with tkinter")
 root.iconbitmap('E:/Programming Projects/python/tinker/img/spider.ico')
 
 e = Entry(root, borderwidth=5, width=35)
