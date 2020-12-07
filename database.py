@@ -5,7 +5,7 @@ import sqlite3
 root = Tk()
 root.title("learn python with tkinter")
 root.iconbitmap('E:/Programming Projects/python/tinker/img/spider.ico')
-root.geometry("250x300")
+root.geometry("250x600")
 
 
 def submit():
@@ -44,9 +44,22 @@ def query():
     addresses = cursor.fetchall()
     records = ""
     for address in addresses:
-        records += str(address[0]+" "+address[1])+"\n"
+        records += str(address[0]+" "+address[1])+"\t"+str(address[6])+"\n"
 
-    Label(root, text=records).grid(row=8, column=0, columnspan=2)
+    Label(root, text=records).grid(row=10, column=0, columnspan=2)
+    # commit changes
+    connect.commit()
+    # close the connection
+    connect.close()
+
+
+def delete():
+    connect = sqlite3.connect('address_book.db')
+    # get the cursor
+    cursor = connect.cursor()
+    # select all the records
+    # TODO: update for sql injection
+    cursor.execute("DELETE FROM addresss WHERE oid="+delete_id.get())
     # commit changes
     connect.commit()
     # close the connection
@@ -95,6 +108,13 @@ Button(root, text="Add New Record", command=submit).grid(
 
 Button(root, text="Show Record", command=query).grid(
     row=7, column=0, columnspan=2, padx=10, pady=10, sticky=N+S+E+W)
+
+delete_id = Entry(root, width=20)
+delete_id.grid(row=8, column=1)
+Label(root, text="Record Id", width=10).grid(row=8, column=0)
+
+Button(root, text="Delete Record", command=delete).grid(
+    row=9, column=0, columnspan=2, padx=10, pady=10, sticky=N+S+E+W)
 
 
 # keep the programme running intel the user close the app
