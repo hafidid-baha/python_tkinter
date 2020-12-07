@@ -10,6 +10,23 @@ connect = sqlite3.connect('address_book.db')
 
 
 def submit():
+    # get the cursor
+    cursor = connect.cursor()
+
+    # create a query to insert new record to database
+    cursor.execute("INSERT INTO addresss VALUES(:fname,:lname,:address,:city,:state,:zipcode)", {
+        "fname": f_name.get(),
+        "lname": l_name.get(),
+        "address": addr.get(),
+        "city": city.get(),
+        "state": state.get(),
+        "zipcode": zipcode.get(),
+    })
+    # commit changes
+    connect.commit()
+
+    # close the connection
+    connect.close()
     f_name.delete(0, END)
     l_name.delete(0, END)
     addr.delete(0, END)
@@ -17,9 +34,6 @@ def submit():
     state.delete(0, END)
     zipcode.delete(0, END)
 
-
-# get the cursor
-cursor = connect.cursor()
 # create a table
 # cursor.execute("""
 #     CREATE TABLE addresss(
@@ -32,11 +46,6 @@ cursor = connect.cursor()
 #     )
 # """)
 
-# commit changes
-connect.commit()
-
-# close the connection
-connect.close()
 
 f_name = Entry(root, width=20)
 f_name.grid(row=0, column=1)
@@ -44,7 +53,7 @@ Label(root, text="first name", width=10).grid(row=0, column=0)
 
 l_name = Entry(root, width=20)
 l_name.grid(row=1, column=1)
-Label(root, text="first name", width=10).grid(row=1, column=0)
+Label(root, text="last name", width=10).grid(row=1, column=0)
 
 addr = Entry(root, width=20)
 addr.grid(row=2, column=1)
@@ -62,7 +71,7 @@ zipcode = Entry(root, width=20)
 zipcode.grid(row=5, column=1)
 Label(root, text="zip Code", width=10).grid(row=5, column=0)
 
-Button(root, text="add number", command=submit).grid(row=6, column=0)
+Button(root, text="Add New Record", command=submit).grid(row=6, column=0)
 
 # keep the programme running intel the user close the app
 root.mainloop()
