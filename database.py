@@ -6,10 +6,10 @@ root = Tk()
 root.title("learn python with tkinter")
 root.iconbitmap('E:/Programming Projects/python/tinker/img/spider.ico')
 root.geometry("250x300")
-connect = sqlite3.connect('address_book.db')
 
 
 def submit():
+    connect = sqlite3.connect('address_book.db')
     # get the cursor
     cursor = connect.cursor()
 
@@ -24,15 +24,33 @@ def submit():
     })
     # commit changes
     connect.commit()
-
     # close the connection
     connect.close()
+
     f_name.delete(0, END)
     l_name.delete(0, END)
     addr.delete(0, END)
     city.delete(0, END)
     state.delete(0, END)
     zipcode.delete(0, END)
+
+
+def query():
+    connect = sqlite3.connect('address_book.db')
+    # get the cursor
+    cursor = connect.cursor()
+    # select all the records
+    cursor.execute("SELECT *,oid FROM addresss")
+    addresses = cursor.fetchall()
+    records = ""
+    for address in addresses:
+        records += str(address[0]+" "+address[1])+"\n"
+
+    Label(root, text=records).grid(row=8, column=0, columnspan=2)
+    # commit changes
+    connect.commit()
+    # close the connection
+    connect.close()
 
 # create a table
 # cursor.execute("""
@@ -71,7 +89,13 @@ zipcode = Entry(root, width=20)
 zipcode.grid(row=5, column=1)
 Label(root, text="zip Code", width=10).grid(row=5, column=0)
 
-Button(root, text="Add New Record", command=submit).grid(row=6, column=0)
+
+Button(root, text="Add New Record", command=submit).grid(
+    row=6, column=0, columnspan=2, padx=10, pady=10, sticky=N+S+E+W)
+
+Button(root, text="Show Record", command=query).grid(
+    row=7, column=0, columnspan=2, padx=10, pady=10, sticky=N+S+E+W)
+
 
 # keep the programme running intel the user close the app
 root.mainloop()
